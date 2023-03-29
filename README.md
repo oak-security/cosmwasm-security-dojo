@@ -2,7 +2,7 @@
 
 # The CosmWasm Security Dojo
 
-*Welcome to the :japanese_castle:**Oak's CosmWasm Security Dojo**:japanese_castle:, where all apprentices are welcomed. It doesn't matter which background you came from or how skilled you are or where are you from, the only thing that matters in this Security Dojo is :cyclone: your will to solve challenges and learn :cyclone:*
+*Welcome to :japanese_castle:**Oak's CosmWasm Security Dojo**:japanese_castle:, where all apprentices are welcomed. It doesn't matter which background you came from or how skilled you are or where are you from, the only thing that matters in this Security Dojo is :cyclone: your will to solve challenges and learn :cyclone:*
 
 ## First time here?
 
