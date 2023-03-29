@@ -1,6 +1,8 @@
-# Challenge 1 = Store-what?
+# Challenge 1: Store-what?
 
-This first challenge will depict a common bug that could have critical consequences, this challenge is about... **Wait:exclamation: Don't you want to try it first?** :sunglasses:
+This first challenge will depict a common bug that could have critical consequences, this challenge is about... 
+
+**Wait:exclamation: Don't you want to try it first?** :sunglasses:
 
 If you ready to learn more about the security issue depicted in this first challeng, please check  [CosmWasm Security Spotligth #1](notion://www.notion.so/Dojo-1d3e575f21de4173a28cade2e67d1796)
 
