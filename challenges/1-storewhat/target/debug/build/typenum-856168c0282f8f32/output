@@ -1,2 +1,0 @@
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/jc/internal-cosmwasm-security-dojo/challenges/1-storewhat/target/debug/build/typenum-856168c0282f8f32/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/home/jc/internal-cosmwasm-security-dojo/challenges/1-storewhat/target/debug/build/typenum-856168c0282f8f32/out/op.rs
