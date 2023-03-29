@@ -6,9 +6,9 @@
 
 ## First time here?
 
-The challenges that we will be publishing here target a beginner audience and could be categorized between easy and medium difficulty. It is the perfect place to start honing your security skills if you are looking to develop secure CosmWasm smart contracts or, if you are into security but new to this awesome tech, to spot common pitfalls on CW contracts.
+The challenges that we will be publishing here target a **beginner audience** and could be categorized between easy and medium difficulty. It is the perfect place to start honing your security skills if you are looking to develop **secure CosmWasm smart contracts** or, if you are into security but new to this awesome tech, to **spot common pitfalls** on CW contracts.
 
-To successfully face the challenges you should first get familiar with Rust and CosmWasm smart contracts. There are plenty of resources out there, but the below could be a good starting point:
+To successfully face the challenges you should get familiar with Rust and CosmWasm smart contracts first. There are plenty of resources out there, but the below could be a good starting point:
 
 - [Rust by example](https://doc.rust-lang.org/rust-by-example/index.html)
 - [The CosmWasm Book](https://book.cosmwasm.com/)
