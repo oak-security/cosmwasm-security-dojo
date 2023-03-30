@@ -1,21 +1,22 @@
 use super::*;
 use cosmwasm_std::testing::{mock_dependencies_with_balance, mock_env, mock_info};
-use cosmwasm_std::{coins, from_binary};
+use cosmwasm_std::{coins, from_binary, StdError};
+use crate::ContractError;
 use crate::contract::{execute, instantiate};
 use cosmwasm_std::{Coin, Uint128};
 use cosmwasm_std::BalanceResponse;
 use crate::contract::query;
 use crate::msg::{InstantiateMsg, ExecuteMsg, QueryMsg};
 
-
 #[test]
-#[should_panic(expected = "Invalid instantiation")]
 fn invalid_init() {
     let mut deps = mock_dependencies_with_balance(&coins(2, "token"));
     let msg = InstantiateMsg {};
     let info = mock_info("creator", &coins(0, DENOM.to_string()));
-    let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
+    let res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap_err();
+    assert_eq!(res, ContractError::InvalidInstantiation {});
 }
+
 
 #[test]
 fn deposit_success() {
@@ -44,7 +45,6 @@ fn deposit_success() {
 }
 
 #[test]
-#[should_panic(expected = "Invalid deposit!")]
 fn deposit_failure() {
     let mut deps = mock_dependencies_with_balance(&coins(2, "token"));
 
@@ -55,7 +55,8 @@ fn deposit_failure() {
     // other funds such as uluna with not be recorded
     let info = mock_info("bob", &coins(10, "uluna".to_string()));
     let msg = ExecuteMsg::Deposit {};
-    let _err = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
+    let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
+    assert_eq!(res, ContractError::Std(StdError::generic_err("Invalid deposit!")));
 }
 
 #[test]
@@ -81,7 +82,6 @@ fn borrow_success() {
 }
 
 #[test]
-#[should_panic(expected = "Borrow too much!")]
 fn borrow_fail() {
     let mut deps = mock_dependencies_with_balance(&coins(2, "token"));
 
@@ -100,5 +100,6 @@ fn borrow_fail() {
     let msg = ExecuteMsg::Borrow {
         amount: Uint128::from(501_u64),
     };
-    let _res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
+    let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
+    assert_eq!(res, ContractError::Std(StdError::generic_err("Borrow too much!")));
 }

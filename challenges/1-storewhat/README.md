@@ -9,12 +9,12 @@ If you ready to learn more about the security issue depicted in this first chall
 ## Running the tests
 
 To run the functional tests included with this CosmWasm smart contract:
-```
+```sh
 cargo test --tests -- unittests --nocapture
 ```
 
 To run the proof of concept:
-```
+```sh
 cargo test --tests -- exploit  --nocapture
 ```
 
