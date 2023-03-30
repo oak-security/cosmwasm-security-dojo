@@ -23,4 +23,4 @@ Each challenge will include the working proof of concept along with other functi
 
 The current set of challenges is listed below:
 
-1. (Store-what?)[/challenges/1-storewhat]
+1. [Store-what?](/challenges/1-storewhat)
