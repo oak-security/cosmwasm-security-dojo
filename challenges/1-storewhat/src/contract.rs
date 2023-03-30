@@ -1,3 +1,4 @@
+// Import necessary libraries and modules
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
@@ -11,6 +12,7 @@ use crate::state::{USER_BALANCE, USER_BORROW};
 
 const DENOM: &str = "uosmo";
 
+// Instantiate function called when the contract is initialized
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn instantiate(
     _deps: DepsMut,
@@ -18,19 +20,19 @@ pub fn instantiate(
     info: MessageInfo,
     _msg: InstantiateMsg,
 ) -> Result<Response, ContractError> {
-    // admin must provide 1000 uosmo when instantiating contract
+    // Check if the contract instantiation has the required amount of funds
     if info.funds.len() != 1
         || info.funds[0].denom != DENOM
         || info.funds[0].amount != Uint128::from(1000_u64)
     {
-        return Err(ContractError::Std(StdError::generic_err(
-            "Invalid instantiation",
-        )));
+        return Err(ContractError::InvalidInstantiation {});
     }
 
+    // Return a success response with an attribute indicating the action
     Ok(Response::new().add_attribute("action", "instantiate"))
 }
 
+// Execute function called when interacting with the contract
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(
     deps: DepsMut,
@@ -38,6 +40,7 @@ pub fn execute(
     info: MessageInfo,
     msg: ExecuteMsg,
 ) -> Result<Response, ContractError> {
+    // Match the provided ExecuteMsg to the corresponding function
     match msg {
         ExecuteMsg::Deposit {} => try_deposit(deps, info),
         ExecuteMsg::Withdraw { amount } => try_withdraw(deps, info, amount),
@@ -46,16 +49,16 @@ pub fn execute(
     }
 }
 
-/// deposit funds entry point
+// Deposit function to add funds to the contract
 pub fn try_deposit(deps: DepsMut, info: MessageInfo) -> Result<Response, ContractError> {
-    // validate uosmo sent
+    // Validate that the correct token denomination is being deposited
     if info.funds.len() != 1 || info.funds[0].denom != DENOM {
         return Err(ContractError::Std(StdError::generic_err(
             "Invalid deposit!",
         )));
     }
 
-    // update user balance
+    // Update the user's balance in storage
     USER_BALANCE.update(
         deps.storage,
         &info.sender,
@@ -66,27 +69,28 @@ pub fn try_deposit(deps: DepsMut, info: MessageInfo) -> Result<Response, Contrac
         },
     )?;
 
+    // Return a success response with attributes indicating the method and amount
     Ok(Response::new()
         .add_attribute("method", "deposit")
         .add_attribute("amount", info.funds[0].amount))
 }
 
-/// withdraw funds entry point
+// Withdraw function to remove funds from the contract
 pub fn try_withdraw(
     deps: DepsMut,
     info: MessageInfo,
     amount: Uint128,
 ) -> Result<Response, ContractError> {
+    // Validate that the withdrawal amount is non-zero
     if amount.is_zero() {
         return Err(ContractError::Std(StdError::generic_err(
             "Invalid zero amount!",
         )));
     }
 
-    // get user deposit amount
+    // Calculate the available amount the user can withdraw
     let deposit_amount = USER_BALANCE.load(deps.storage, &info.sender)?;
 
-    // get user borrow amount
     let borrowed_amount = USER_BORROW
         .may_load(deps.storage, &info.sender)?
         .unwrap_or_default();
@@ -99,7 +103,7 @@ pub fn try_withdraw(
         )));
     }
 
-    // decrease user balance
+    // Decrease user balance in storage
     USER_BALANCE.update(
         deps.storage,
         &info.sender,
@@ -108,7 +112,7 @@ pub fn try_withdraw(
         },
     )?;
 
-    // send uosmo to user
+    // Send tokens to the user
     let msg = CosmosMsg::Bank(BankMsg::Send {
         to_address: info.sender.to_string(),
         amount: vec![Coin {
@@ -117,28 +121,28 @@ pub fn try_withdraw(
         }],
     });
 
+    // Return a success response with attributes indicating the method and amount
     Ok(Response::new()
         .add_message(msg)
         .add_attribute("method", "withdraw")
         .add_attribute("amount", amount))
 }
 
-/// borrow funds entry point
+// Borrow function to take out a loan
 pub fn try_borrow(
     deps: DepsMut,
     info: MessageInfo,
     amount: Uint128,
 ) -> Result<Response, ContractError> {
+    // Validate that the borrow amount is non-zero
     if amount.is_zero() {
         return Err(ContractError::Std(StdError::generic_err(
             "Invalid zero amount!",
         )));
     }
 
-    // get user deposit amount
+    // Calculate the available amount the user can borrow
     let deposit_amount = USER_BALANCE.load(deps.storage, &info.sender)?;
-
-    // get user borrow amount
     let mut borrowed_amount = USER_BORROW
         .may_load(deps.storage, &info.sender)?
         .unwrap_or_default();
@@ -151,7 +155,7 @@ pub fn try_borrow(
         )));
     }
 
-    // send uosmo to user
+    // Send tokens to the user
     let msg = CosmosMsg::Bank(BankMsg::Send {
         to_address: info.sender.to_string(),
         amount: vec![Coin {
@@ -160,33 +164,37 @@ pub fn try_borrow(
         }],
     });
 
-    // update user borrow amount
+    // Update the user's borrowed amount in storage
     borrowed_amount += amount;
 
+    // Return a success response with attributes indicating the method and amount
     Ok(Response::new()
         .add_message(msg)
         .add_attribute("method", "borrow")
         .add_attribute("amount", amount))
 }
 
+// Helper function to calculate the available amount to borrow
 fn get_available_borrow_amount(deposit_amount: Uint128, borrowed_amount: Uint128) -> Uint128 {
-    // max borrow amount = 50% of total deposit
+    // Maximum borrow amount is 50% of the total deposit
     (deposit_amount * Decimal::from_ratio(1_u64, 2_u64)) - borrowed_amount
 }
 
+// Helper function to calculate the available amount to withdraw
 fn get_available_withdraw_amount(deposit_amount: Uint128, borrowed_amount: Uint128) -> Uint128 {
     deposit_amount - (borrowed_amount * Decimal::from_ratio(2_u64, 1_u64))
 }
 
+// Repay function to return borrowed funds
 pub fn try_repay(deps: DepsMut, info: MessageInfo) -> Result<Response, ContractError> {
-    // validate uosmo sent
+    // Validate that the correct amount of uosmo is sent
     if info.funds.len() != 1 || info.funds[0].denom != DENOM {
         return Err(ContractError::Std(StdError::generic_err(
             "Invalid repayment!",
         )));
     }
 
-    // update user balance
+    // Update user borrow balance in storage
     USER_BORROW.update(
         deps.storage,
         &info.sender,
@@ -197,10 +205,12 @@ pub fn try_repay(deps: DepsMut, info: MessageInfo) -> Result<Response, ContractE
         },
     )?;
 
+    // Return a success response with attributes indicating the method and amount
     Ok(Response::new()
         .add_attribute("method", "repayment")
         .add_attribute("amount", info.funds[0].amount))
 }
+
 
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
@@ -210,6 +220,7 @@ pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     }
 }
 
+/// Query balance for a specific user
 fn query_balance(deps: Deps, address: String) -> StdResult<BalanceResponse> {
     let user_balance = USER_BALANCE.load(deps.storage, &deps.api.addr_validate(&address)?)?;
     Ok(BalanceResponse {
@@ -220,6 +231,7 @@ fn query_balance(deps: Deps, address: String) -> StdResult<BalanceResponse> {
     })
 }
 
+/// Query debt for a specific user
 fn query_debt(deps: Deps, address: String) -> StdResult<DebtResponse> {
     let user_debt = USER_BORROW
         .may_load(deps.storage, &deps.api.addr_validate(&address)?)?
