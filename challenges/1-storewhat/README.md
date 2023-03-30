@@ -4,7 +4,7 @@ This first challenge will depict a common bug that could have critical consequen
 
 **Wait:exclamation: Don't you want to try it first?** :sunglasses:
 
-If you ready to learn more about the security issue depicted in this first challeng, please check the [explanation page](EXPLANATION.md) or [CW Security Spotlight #1](testetteste)
+If you ready to learn more about the security issue depicted in this first challenge, please check the [explanation page](EXPLANATION.md) or [CW Security Spotlight #1](testetteste)
 
 ## Running the tests
 
