@@ -8,7 +8,7 @@ The contract allows users to deposit, borrow, and repay funds. However, it conta
 
 ## A Quick Look at the Issue
 
-The issue lies in the `try_borrow` function of the contract. This funciton calculates the amount a user can borrow and sends the funds to the user. But it misses a crucial step: updating the user's borrow amount in the contract's storage.
+The issue lies in the `try_borrow` function of the contract. This function calculates the amount a user can borrow and sends the funds to the user. But it misses a crucial step: updating the user's borrow amount in the contract's storage.
 
 ```rust
 pub fn try_borrow(
