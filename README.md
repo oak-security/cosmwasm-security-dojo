@@ -21,6 +21,7 @@ Each challenge includes a working proof of concept (PoC) along with other functi
 The current set of challenges is listed below:
 
 1. [Store-what?](/challenges/01-storewhat)
+2. [Auth](/challenges/02-auth)
 
 To stay up to date, star and watch this repository, and [follow us on Twitter](https://twitter.com/SecurityOak).
 
