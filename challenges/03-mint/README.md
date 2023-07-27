@@ -1,6 +1,6 @@
 # Awesomwasm 2023 CTF
 
-## Challenge 11
+## Challenge 10
 
 This smart contract allows whitelisted users to mint NFTs. This is a clone of [Challenge 10: *Mistilteinn*](https://github.com/oak-security/cosmwasm-ctf/tree/main/ctf-10) with the bonus solution submitted by [@CruncherDefi](https://twitter.com/CruncherDefi) and [@howlpack](https://twitter.com/howlpack).
 
