@@ -14,7 +14,7 @@ To successfully face the challenges you should get familiar with Rust and CosmWa
 
 ## Challenges and topics
 
-For now please consider this repo as work in progress :construction:, as we will be adding new challenges over the next weeks.
+For now please consider this repo as a work in progress :construction:, as we will be adding new challenges over the next weeks.
 
 Each challenge includes a working proof of concept (PoC) along with other functional tests. You can find the PoC it under `tests/exploit.rs`, but we encourage you to try to craft the exploit yourself first. The experience gained from trying to find the bug and crafting the PoC on your own will make a big difference in your learning journey.
 
@@ -22,6 +22,8 @@ The current set of challenges is listed below:
 
 1. [Store-what?](/challenges/01-storewhat)
 2. [Auth](/challenges/02-auth)
+3. [Mint](/challenges/03-mint)
+4. [NFT state](/challenges/04-nft)
 
 To stay up to date, star and watch this repository, and [follow us on Twitter](https://twitter.com/SecurityOak).
 
