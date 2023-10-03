@@ -11,7 +11,7 @@ use crate::error::ContractError;
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::{Config, MintedNFT, Whitelist, CONFIG, MINT_PER_USER, WHITELIST};
 
-pub const DENOM: &str = "uawesome";
+pub const DENOM: &str = "uoaksec";
 const DEFAULT_LIMIT: u32 = 10;
 const MAX_LIMIT: u32 = 30;
 

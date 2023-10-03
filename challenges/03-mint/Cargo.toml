@@ -1,5 +1,5 @@
 [package]
-name = "oaksecurity-cosmwasm-ctf-11"
+name = "03-mint"
 version = "0.1.0"
 authors = ["Oak Security <info@oaksecurity.io>"]
 edition = "2021"

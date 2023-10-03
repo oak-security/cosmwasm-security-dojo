@@ -1,4 +1,4 @@
-# Exploit Explanation
+# Exploit Explanation //@todo
 
 In this document, we'll walk you through the security vulnerability that can be exploited in this CosmWasm smart contract.
 

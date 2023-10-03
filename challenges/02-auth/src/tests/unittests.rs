@@ -23,7 +23,7 @@ fn deposit_success() {
     let info = mock_info("creator", &coins(1000, DENOM.to_string()));
     instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
 
-    // user able to deposit uosmo
+    // user able to deposit funds
     let info = mock_info("alice", &coins(100, DENOM));
     let msg = ExecuteMsg::Deposit {};
     execute(deps.as_mut(), mock_env(), info, msg).unwrap();

@@ -11,7 +11,7 @@ use crate::error::ContractError;
 use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::{Config, Sale, Trade, CONFIG, OPERATIONS, SALES, TRADES};
 
-pub const DENOM: &str = "uawesome";
+pub const DENOM: &str = "uoaksec";
 pub const TRADE_REPLY: u64 = 1;
 pub const SALE_REPLY: u64 = 2;
 

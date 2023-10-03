@@ -10,7 +10,7 @@ use crate::error::ContractError;
 use crate::msg::{DebtResponse, ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::{USER_BALANCE, USER_BORROW};
 
-const DENOM: &str = "uosmo";
+const DENOM: &str = "uoaksec";
 
 // Instantiate function called when the contract is initialized
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -187,7 +187,7 @@ fn get_available_withdraw_amount(deposit_amount: Uint128, borrowed_amount: Uint1
 
 // Repay function to return borrowed funds
 pub fn try_repay(deps: DepsMut, info: MessageInfo) -> Result<Response, ContractError> {
-    // Validate that the correct amount of uosmo is sent
+    // Validate that the correct amount of funds is sent
     if info.funds.len() != 1 || info.funds[0].denom != DENOM {
         return Err(ContractError::Std(StdError::generic_err(
             "Invalid repayment!",
