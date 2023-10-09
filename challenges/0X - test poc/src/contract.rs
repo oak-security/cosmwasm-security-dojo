@@ -2,8 +2,7 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    to_binary, BalanceResponse, BankMsg, Binary, Coin, CosmosMsg, Decimal, Deps, DepsMut, Env,
-    MessageInfo, Response, StdError, StdResult, Uint128,
+    to_binary,Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult,
 };
 
 use crate::error::ContractError;
@@ -41,15 +40,15 @@ pub fn execute(
 }
 
 // Deposit function to add funds to the contract
-pub fn try_something(deps: DepsMut, info: MessageInfo) -> Result<Response, ContractError> {
+pub fn try_something(deps: DepsMut, _info: MessageInfo) -> Result<Response, ContractError> {
 
-    TEST.save(deps.storage, &"something".to_string());
+    TEST.save(deps.storage, &"something".to_string())?;
     return Err( ContractError::Unauthorized{ } );
+    TEST.save(deps.storage, &"something else".to_string())?;
 
     // Return a success response with attributes indicating the method and amount
     Ok(Response::new()
-        .add_attribute("method", "deposit")
-        .add_attribute("amount", info.funds[0].amount))
+        .add_attribute("method", "smthg"))
 }
 
 
