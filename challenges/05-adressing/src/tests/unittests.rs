@@ -59,15 +59,6 @@ fn denylisting() {
     let msg = ExecuteMsg::AddToDenylist { address: "rcpt".to_string() };
     execute(deps.as_mut(), mock_env(), info, msg).unwrap();
 
-    // Failed withdraw of funds
-    let info = mock_info("alice", &[]);
-    let msg = ExecuteMsg::Withdraw {
-        amount: Uint128::from(100_u64),
-        destination: Some("rcpt".to_string()),
-    };
-    let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
-    assert_eq!(res, ContractError::Denylisted {  });
-
     // Verify deposit succeeded
     {
         let res = query(
@@ -79,8 +70,30 @@ fn denylisting() {
         )
         .unwrap();
         let value: UserResponse = from_binary(&res).unwrap();
-        assert_eq!(Uint128::from(100_u64), value.amount); //@todo although returning an error in 77 the withdraw takes effect??
+        assert_eq!(Uint128::from(100_u64), value.amount);
     }
+
+    // Failed withdraw of funds
+    let info = mock_info("alice", &[]);
+    let msg = ExecuteMsg::Withdraw {
+        amount: Uint128::from(100_u64),
+        destination: Some("rcpt".to_string()),
+    };
+    let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
+    assert_eq!(res, ContractError::Denylisted {  });
+
+    // Verify deposit succeeded   
+    let res = query(
+        deps.as_ref(),
+        mock_env(),
+        QueryMsg::GetUserData {
+            address: "alice".to_string(),
+        },
+    )
+    .unwrap();
+    let value: UserResponse = from_binary(&res).unwrap();
+    assert_eq!(Uint128::from(100_u64), value.amount); //@todo although returning an error in 77 the withdraw takes effect??
+    
 
     // Allow-list rcpt
     let info = mock_info("creator", &[]);

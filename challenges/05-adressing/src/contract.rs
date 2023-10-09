@@ -106,12 +106,23 @@ pub fn try_withdraw(
     user.rewards = Uint128::zero();
     USERS.save(deps.storage, &info.sender, &user)?;
 
+    println!("1");
+
     // Assign recipient
     let mut recipient = info.sender.to_string();
     if let Some(destination) = destination {
         check_denylist(&deps, &destination)?;
+
+        let denylist = DENYLIST.load(deps.storage)?;
+        if denylist.contains(&destination) {
+            println!("Err Deny in line");
+            return Err(ContractError::Denylisted {});
+        }
+
         recipient = destination;
     }
+
+    println!("2");
 
     // Send tokens to the user
     let msg = CosmosMsg::Bank(BankMsg::Send {
@@ -121,6 +132,8 @@ pub fn try_withdraw(
             amount: amount_to_withdraw,
         }],
     });
+
+    println!("3");
 
     // Return a success response with attributes indicating the method and amount
     Ok(Response::new()
@@ -204,6 +217,7 @@ pub fn check_denylist(deps: &DepsMut, address: &String) -> Result<(), ContractEr
     let denylist = DENYLIST.load(deps.storage)?;
 
     if denylist.contains(address) {
+        println!("Err Deny in fn");
         return Err(ContractError::Denylisted {});
     }
 
