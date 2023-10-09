@@ -6,7 +6,7 @@ This fifth challenge will depict a common bug that could have critical consequen
 
 Try finding the security vulnerability in the contract in `./src`.
 
-If you are stuck or want to skip to the explanation of the vulnerability of this challenge, please check the [explanation page](EXPLANATION.md) or our blog post [CosmWasm Security Spotlight #3](https://medium.com/@jcsec-audits/cosmwasm-security-spotlight-3-2b11f36fd61).//@todo
+If you are stuck or want to skip to the explanation of the vulnerability of this challenge, please check the [explanation page](EXPLANATION.md) or our blog post [CosmWasm Security Spotlight #3](https://medium.com/@jcsec-audits/cosmwasm-security-spotlight-3-2b11f36fd61).
 
 ## Running the tests
 
