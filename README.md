@@ -25,6 +25,7 @@ The current set of challenges is listed below:
 3. [Mint](/challenges/03-mint)
 4. [NFT state](/challenges/04-nft)
 5. [Addressing](/challenges/05-addressing)
+6. [Rounding](/challenges/06-rounding)
 
 To stay up to date, star and watch this repository, and [follow us on Twitter](https://twitter.com/SecurityOak).
 
