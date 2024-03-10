@@ -4,7 +4,7 @@ use std::fs::create_dir_all;
 use cosmwasm_schema::{export_schema, remove_schemas, schema_for};
 
 use cosmwasm_std::BalanceResponse;
-use cw_ctf::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use cw_dojo_01::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 
 fn main() {
     let mut out_dir = current_dir().unwrap();

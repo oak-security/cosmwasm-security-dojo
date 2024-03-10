@@ -2,7 +2,7 @@
 
 This first challenge will depict a common bug that could have critical consequences, this challenge is about...
 
-**Wait:exclamation: Don't you want to try solving it first?** :sunglasses:
+**Wait :exclamation: Don't you want to try solving it first?** :sunglasses:
 
 Try finding the security vulnerability in the contract in `./src`.
 

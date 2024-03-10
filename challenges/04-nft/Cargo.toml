@@ -1,5 +1,5 @@
 [package]
-name = "04-nft"
+name = "cw-dojo-04"
 version = "0.1.0"
 authors = ["Oak Security <info@oaksecurity.io>"]
 edition = "2021"

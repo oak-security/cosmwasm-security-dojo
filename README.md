@@ -10,7 +10,7 @@ To successfully face the challenges you should get familiar with Rust and CosmWa
 
 - [Rust by example](https://doc.rust-lang.org/rust-by-example/index.html)
 - [The CosmWasm Book](https://book.cosmwasm.com/)
-- [CosmWasm Academy](https://academy.cosmwasm.com/)
+- [CosmWasm Academy](https://cosmwasm.getlearnworlds.com/)
 
 ## Challenges and topics
 

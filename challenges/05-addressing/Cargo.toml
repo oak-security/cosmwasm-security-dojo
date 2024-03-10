@@ -1,8 +1,8 @@
 [package]
-name = "cw-ctf"
+name = "cw-dojo-05"
 version = "0.1.0"
 authors = ["Oak Security <info@oaksecurity.io>"]
-edition = "2018"
+edition = "2021"
 
 exclude = [
   # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.

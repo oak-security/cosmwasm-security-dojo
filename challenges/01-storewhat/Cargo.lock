@@ -169,7 +169,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "cw-ctf"
+name = "cw-dojo-01"
 version = "0.1.0"
 dependencies = [
  "cosmwasm-schema",

@@ -1,5 +1,5 @@
 [package]
-name = "03-mint"
+name = "cw-dojo-03"
 version = "0.1.0"
 authors = ["Oak Security <info@oaksecurity.io>"]
 edition = "2021"
